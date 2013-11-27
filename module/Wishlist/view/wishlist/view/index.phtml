@@ -1,0 +1,18 @@
+<?php
+$title = 'My Family';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<table class="table">
+	<tr>
+		<th>First Name</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php foreach($family as $key => $value): ?>
+	<tr>
+		<td><?php echo $value; ?></td>
+		<td><a href="<?php echo $this->url('view', array('action' => 'wishlist', 'id' => $key)) ?>">View Wishlist</a></td>
+	</tr>
+	<?php endforeach ?>
+</table>

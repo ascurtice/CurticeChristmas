@@ -1,0 +1,25 @@
+<?php
+$title = 'Wishlist for ' . $person->firstName;
+$this->headTitle($title);?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<table class="table">
+	<tr>
+		<th>Description</th>
+		<th>Cost</th>
+		<th>Website or Store</th>
+		<th>Additional Information</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php foreach($wishlist as $item): ?>
+		<?php if($item->taken != 1): ?>
+		<tr>
+			<td><?php echo $item->description; ?></td>
+			<td><?php echo '$' . number_format($item->cost, 2); ?></td>
+			<td><?php echo $item->storeOrWebsite; ?></td>
+			<td><?php echo $item->additionalInformation; ?></td>
+			<td><a href="<?php echo $this->url('view', array('action' => 'take', 'id' => $item->id)) ?>">Take Item</a></td>
+		</tr>
+		<?php endif; ?>
+	<?php endforeach; ?>
+</table>

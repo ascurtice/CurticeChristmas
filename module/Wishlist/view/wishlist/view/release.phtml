@@ -1,0 +1,23 @@
+<?php
+$title = 'Release item';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p>Are you sure that you want to release
+    '<?php echo $this->escapeHtml($wishlist->description); ?>'
+    to your cart?
+</p>
+<?php
+$url = $this->url('view', array(
+    'action' => 'release',
+    'id'     => $this->id,
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+    <div>
+        <input type="hidden" name="id" value="<?php echo (int) $wishlist->id; ?>" />
+        <input type="submit" name="del" value="Yes" />
+        <input type="submit" name="del" value="No" />
+    </div>
+</form>

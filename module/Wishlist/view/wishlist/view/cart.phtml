@@ -1,0 +1,32 @@
+<?php
+$title = 'My Cart';
+$this->headTitle($title);?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<table class="table">
+	<tr>
+		<th>Family Member</th>
+		<th>Description</th>
+		<th>Cost</th>
+		<th>Store or Website</th>
+		<th>Additional Information</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php if(count($cartList) > 0): ?>
+		<?php foreach($cartList as $item): ?>
+			<tr>
+				<td><?php echo $item['familyMember']; ?></td>
+				<td><?php echo $item['item']; ?></td>
+				<td><?php echo '$' . number_format($item['cost'], 2); ?></td>
+				<td><?php echo $item['storeOrWebsite']; ?></td>
+				<td><?php echo $item['addtl']; ?></td>
+				<td><a href="<?php echo $this->url('view', array('action' => 'release', 'id' => $item['id'])) ?>">Release Item</a></td>
+			</tr>
+		<?php endforeach; ?>
+	<?php endif;?>
+	<?php if(count($cartList) < 1): ?>
+	<tr>
+		<td colspan="6">Your cart is currently emptpy.</td>
+	</tr>
+	<?php endif; ?>
+</table>

@@ -1,0 +1,32 @@
+<?php
+$title = 'My Wishlist';
+$this->headTitle($title);
+setlocale(LC_MONETARY, 'en_US');
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p>
+	<a href="<?php echo $this->url('wishlist', array('action' => 'add')) ?>">Add Wishlist Item</a>
+</p>
+<table class="table">
+	<tr>
+		<th>Description</th>
+		<th>Cost</th>
+		<th>Website or Store</th>
+		<th>Additional Information</th>
+		<th>Taken</th>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php foreach($wishlist as $item): ?>
+	<tr>
+		<td><?php echo $item->description; ?></td>
+		<td><?php echo '$' . number_format($item->cost, 2); ?></td>
+		<td><?php echo $item->storeOrWebsite; ?></td>
+		<td><?php echo $item->additionalInformation; ?></td>
+		<td><?php if(!$item->taken){ echo '<span class="available">Available</span>'; } else{ echo '<span class="taken">Taken</span>';} ?></td>
+		<td><a href="<?php echo $this->url('wishlist', array('action' => 'edit', 'id' => $item->id)) ?>">Edit</a></td>
+		<td><a href="<?php echo $this->url('wishlist', array('action' => 'delete', 'id' => $item->id)) ?>">Delete</a></td>
+	</tr>
+	<?php endforeach ?>
+</table>

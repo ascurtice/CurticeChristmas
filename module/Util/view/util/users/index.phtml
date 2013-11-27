@@ -1,0 +1,27 @@
+<?php
+$title = 'User Administration';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('users', array('action'=>'add'));?>">Add User</a>
+<table class="table">
+	<tr>
+		<th>Username</th>
+		<th>First Name</th>
+		<th>Role</th>
+		<th>Children</th>
+		<th>&nbsp;</th>
+	</tr>
+<?php foreach($users as $u): ?>
+		<tr>
+			<td><?php echo $u['username']; ?></td>
+			<td><?php echo $u['firstName']; ?></td>
+			<td><?php echo $u['role']; ?></td>
+			<td><?php implode(',', $u['children']); ?>
+			</td>
+			<td><a href="<?php echo $this->url('users', array('action'=>'edit', 'id' => $u['id']));?>">Edit</a></td>
+		</tr>
+<?php endforeach ?>
+</table>
+

@@ -1,0 +1,108 @@
+<?php echo $this->doctype(); ?>
+<?php 
+    use Zend\Session\Container; 
+    $session = new Container('userData');
+    $userId = $session->userId;
+    $userName = $session->username;
+    $role = $session->role;
+    if((!($_SERVER['REQUEST_URI'] == '/login')) && (!($userId))){ ?>
+    <script type="text/javascript">
+        window.location = "/login"
+    </script>
+<?php } ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+
+        <?php
+            $options = array(
+                'admin' => array(
+                    'url' => '/util',
+                    'label' => 'Administration',
+                    'role' => 1
+                ),
+                'mywishlist' => array(
+                    'url' => '/wishlist',
+                    'label' => 'My Wishlist',
+                    'role' => 3
+                ),
+                'mycart' => array(
+                    'url' => '/view/cart',
+                    'label' => 'My Cart',
+                    'role' => 3
+                ),
+                'mychildren'=>array(
+                    'url' => '/children',
+                    'label' => 'My Children',
+                    'role' => 2
+                ),
+                'family' => array(
+                    'url' => '/view',
+                    'label' => 'My Family',
+                    'role' => 3
+                ),
+            );
+         ?>
+
+    </head>
+    <body>
+    
+        <div class="container">
+            <div class="header">
+                <div class="family">Christmas Wishlist</div>
+                <?php if($_SERVER['REQUEST_URI'] != '/login') { ?>
+                    <div class="logout"><a href="<?php echo $this->url('login', array('action' => 'logout')) ?>">Logout</a></div>
+                <?php } ?>
+            </div>
+        </div>
+        
+        <?php if($_SERVER['REQUEST_URI'] != '/login') { ?>
+        <div class="container main">
+            <div class="leftnav">
+                <ul>
+                <?php foreach($options as $o): 
+                        if ($o['role'] >= $role): ?>
+                            <li><a href="<?php echo $o['url']; ?>"><?php echo $o['label']; ?></a></li>
+                 <?php  endif;
+                      endforeach; ?>
+                </ul>
+            </div>
+            <div class="contents">
+        <?php } else {?>
+            <div class="container">
+            <?php } ?>
+            <?php echo $this->content; ?>
+            </div>
+            <div class="container">
+                <hr>
+                <footer>
+                    <div class="fleft"><p>&copy; 2013 Curtice Family</p></div>
+                    <?php if($_SERVER['REQUEST_URI'] != '/login'): ?>
+                    <div class="fright"><a href="/password">Change Password</a></div>
+                    <?php endif; ?>
+                </footer>
+            </div>
+            <?php echo $this->inlineScript() ?>
+    </body>
+</html>

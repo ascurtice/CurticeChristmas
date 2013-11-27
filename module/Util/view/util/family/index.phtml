@@ -1,0 +1,21 @@
+<?php
+$title = 'Family Administration';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('family', array('action'=>'add'));?>">Add family</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Family</th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php foreach ($families as $family){ ?>
+        <tr>
+            <td><?php echo $family->lastName;?></td>
+            <td><a href="<?php echo $this->url('family', array('action'=>'edit', 'id' => $family->id));?>">Edit</a></td>
+        </tr>
+    <?php } ?>
+</table>

@@ -1,0 +1,26 @@
+<?php
+$title = 'Change My Password';
+$this->headTitle($title);
+?>
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('password', array('action' => 'change')));
+$form->prepare();
+
+	if(count($flashMessages)) : ?>
+	<ul>
+	    <?php foreach ($flashMessages as $msg) : ?>
+	    <li><?php echo $msg; ?></li>
+	    <?php endforeach; ?>
+	</ul>
+<?php 
+	endif;
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('username'));
+echo $this->formRow($form->get('password'));
+echo $this->formRow($form->get('npassword'));
+echo $this->formRow($form->get('ncpassword'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
